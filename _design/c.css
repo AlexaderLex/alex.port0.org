@@ -1,0 +1,10 @@
+@charset "utf-8";
+@import url("Glass_TTY_VT220/stylesheet.css");
+
+.blinkingBullet {
+    padding: 0 0 3.5pt
+}
+
+.menu {
+    font: 24pt/32pt "Glass TTY VT220"
+}

@@ -1,0 +1,42 @@
+Как удалить Яндекс диск из моего компьютера?
+cats: Программы, Прочее, Сисадминство
+tags: windows, Программы, Советы, Яндекс
+2017-08-16 00-23 remove-yadisk-icon-from-mypc\
+
+<p>При установке&nbsp;<a href="https://disk.yandex.ru/invite/?hash=PDJTVWD4">Яндекс диск</a>&nbsp;прописывается&nbsp;<span style="font-weight: 400;">в проводнике и в папке мой компьютер. Лично мне не нравится это, т.к. я считаю, что иконки в левой панели проводника вполне достаточно. Чтобы удалить Яндекс диск из моего компьютера, нужно</span><!--more-->в реестре удалить раздел
+<strong><span style="font-family: 'courier new', courier, monospace;">HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{19170A69-A883-40D5-AF97-F6DC41495F15}</span>.</strong></p>
+<p><img class="alignnone size-full wp-image-1037" src="yadisk-mypc-remove.png" alt="" width="635" height="475"></p>
+<p>Если это не помогло, то удаляем также
+<span style="font-family: 'courier new', courier, monospace;"><strong>HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{19170A69-A883-40D5-AF97-F6DC41495F15}
+</strong></span>и
+<strong><span style="font-family: 'courier new', courier, monospace;">HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{19170A69-A883-40D5-AF97-F6DC41495F15}</span></strong></p>
+<p>Так выглядит файл для&nbsp;удаления Яндекс диска из моего компьютера:</p>
+
+<pre class="EnlighterJSRAW" data-enlighter-language="ini">REGEDIT4
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{19170A69-A883-40D5-AF97-F6DC41495F15}]
+[-HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{19170A69-A883-40D5-AF97-F6DC41495F15}]
+[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{19170A69-A883-40D5-AF97-F6DC41495F15}]
+
+[HKEY_CLASSES_ROOT\CLSID\{11C9DD7B-CCF5-4502-90A1-FEE8889976D5}]
+"System.IsPinnedToNameSpaceTree"=dword:00000000
+</pre>
+<p>Если нужно вернуть&nbsp;Яндекс диск в мой компьютер, то используйте этот файл:</p>
+
+<pre class="EnlighterJSRAW" data-enlighter-language="null">REGEDIT4
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{19170A69-A883-40D5-AF97-F6DC41495F15}]
+@="Яндекс.Диск"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{19170A69-A883-40D5-AF97-F6DC41495F15}]
+@="Яндекс.Диск"
+
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{19170A69-A883-40D5-AF97-F6DC41495F15}]
+@="Яндекс.Диск"
+
+[HKEY_CLASSES_ROOT\CLSID\{11C9DD7B-CCF5-4502-90A1-FEE8889976D5}]
+"System.IsPinnedToNameSpaceTree"=dword:00000001
+</pre>
+<p>Для удобства я выложил готовые файлы реестра для внесения изменений</p>
+<p>&nbsp;<a href="yadisk-mypc.zip">Скачать файлы реестра</a></p>
+<p>&nbsp;</p>

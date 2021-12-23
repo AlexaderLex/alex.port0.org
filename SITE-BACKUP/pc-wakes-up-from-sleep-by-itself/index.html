@@ -1,0 +1,24 @@
+Почему компьютер с Windows сам включается из ждущего режима?
+cats: Windows, Сисадминство, Устранение неполадок
+tags: windows, Командная строка
+2017-06-12 22-17 pc-wakes-up-from-sleep-by-itself\
+
+<p>Я редко выключаю компьютер, предпочитая ждущий и спящий режимы. Так я могу вечером отложить работу или игру и продолжить утром. Когда я только установил Windows 10, заметил, что по утрам компьютер оказывается включен, хотя отчётливо помнил, как выбирал ждущий режим. Ну всё! Теперь Microsoft будет следить за мной постоянно...<!--more-->подумал бы я, будучи каким-нибудь жёлтым журналистом. Но с компьютерами я работаю не первый день и знаю как работают ждущий и спящий режимы.</p>
+<p>Поэтому предлагаю своё решение данной проблемы:</p>
+<p>Первым долгом определяем от чего компьютер проснулся. Для этого заходим в командную строку с правами админа:<br />
+ <img class="wp-image-757 size-full aligncenter" src="command-prompt.png" alt="" width="312" height="625" /></p>
+<p>В консоли нужно написать <span style="font-family: 'courier new', courier, monospace;"><strong>powercfg -LASTWAKE</strong></span><img class="wp-image-758 size-full aligncenter" src="last-wake.png" alt="" width="485" height="215" /></p>
+<p>Это покажет какое именно устройство вызвало пробуждение в последний раз.</p>
+<p>затем пишем <span style="font-family: 'courier new', courier, monospace;"><strong>POWERCFG -DEVICEQUERY wake_armed</strong></span></p>
+<p>Эта команда покажет все устройства, которые могут пробуждать компьютер. Обычно это мыши, клавиатуры и сетевые карты.</p>
+<p>Запретить устройству пробуждать компьютер можно командой:<br />
+ <strong style="font-family: 'courier new', courier, monospace;">POWERCFG -DEVICEDISABLEWAKE "<em>DEVICE-NAME</em>"<br />
+ </strong>в моём случае <strong><em>DEVICE-NAME - это Broadcom NetXtreme Gigabit Ethernet</em></strong><strong style="font-family: 'courier new', courier, monospace;"><br />
+ </strong></p>
+<p>Если уже известно, какое устройство выводит компьютер из спячки, то можно просто зайти в диспетчер устройств и отключить ему эту возможность:<a href="device-manager.png"><img class="alignnone wp-image-786 size-full" src="device-manager.png" alt="" width="779" height="571" /></a></p>
+<p>Вот небольшой ролик о том как это сделать:</p>
+<p><a href="https://www.youtube.com/watch?v=7momgTmJ2OM" target="_blank" rel="noopener"><img class="yt-thumb alignnone" src="https://i.ytimg.com/vi/7momgTmJ2OM/maxresdefault.jpg" alt="" width="1280" height="720" /></a></p>
+<p>&nbsp;</p>
+<div>Также не забывайте подписываться на мой канал  <script src="https://apis.google.com/js/platform.js"></script>
+<div class="g-ytsubscribe" data-channelid="UCX9a9Y9OjG92q_Da0Yl45Cg" data-layout="default" data-count="default"> </div>
+</div>

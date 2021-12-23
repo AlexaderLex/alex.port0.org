@@ -1,0 +1,36 @@
+@import url("c.css");
+
+body {
+    font: 16pt/24pt 'Comic Sans MS';
+    color: #f5ffbe;
+    max-width: 800px;
+    padding: 1em;
+}
+
+.headerFrame {
+    width: 95vw
+}
+
+.news li:nth-child(even) {
+    color: #ee3;
+}
+
+.news li:nth-child(odd) {
+    color: #3ee;
+}
+
+.logoimage {
+    margin: 0 0.5em 0.5em 0;
+}
+
+.clearfix:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.article_delimiter {
+    background: url(green-purple-slide.gif) no-repeat center /100%;
+    height: 0.2em;
+    border: none;
+}

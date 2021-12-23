@@ -1,0 +1,37 @@
+Правильный ip адрес посетителя REMOTE_ADDR c CloudFlare
+cats: Nginx, Сисадминство, Создание сайтов, Хостинг
+tags: Nginx, Советы, хостинг
+2017-09-02 00-04 remote_addr-with-cloudflare\
+
+<p>CloudFlare - очень полезный сервис. О нём я как-нибудь расскажу отдельно. А пока небольшая заметка для тех, кто уже подключил его к своему сайту.</p>
+<p>Если нужен реальный IP адрес посетителя в переменной REMOTE_ADDR, то нужно<!--more--> в nginx.conf в секции server{} или http{} добавить строки:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic"># для cloudflare
+real_ip_header X-Forwarded-For;
+set_real_ip_from 0.0.0.0/0;
+</pre>
+<p>Если у вас обычный хостинг, а не vps и не выделенный сервер, то надо попросить техподдержку добавить эти строки. В случае с <a href="https://eurobyte.ru/?referer=144784">моим хостингом</a> они сделали это за пару минут. </p>
+<p>Разумеется, при работе Nginx в связке с Apache для того, чтобы в REMOTE_ADDR попадал ip адрес клиента, но не самого Nginx, нужно задать такое поведение строками:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null">proxy_set_header    X-Real-IP       $remote_addr;
+proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+</pre>
+<p>После этого переменная REMOTE_ADDR будет получать правильный IP адрес.</p>
+<p>Есть ещё варианты с перечислением IP диапазонов CloudFlare, например:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic"># для cloudflare
+real_ip_header X-Forwarded-For;
+set_real_ip_from 103.21.244.0/22;
+set_real_ip_from 103.22.200.0/22;
+set_real_ip_from 103.31.4.0/22;
+set_real_ip_from 104.16.0.0/12;
+set_real_ip_from 108.162.192.0/18;
+set_real_ip_from 131.0.72.0/22;
+set_real_ip_from 141.101.64.0/18;
+set_real_ip_from 162.158.0.0/15;
+set_real_ip_from 172.64.0.0/13;
+set_real_ip_from 173.245.48.0/20;
+set_real_ip_from 188.114.96.0/20;
+set_real_ip_from 190.93.240.0/20;
+set_real_ip_from 197.234.240.0/22;
+set_real_ip_from 198.41.128.0/17;
+
+</pre>
+<p>Но тут могут возникнуть проблемы. CloudFlare развивается и IP адреса могут меняться, поэтому старые руководства могут стать неактуальны. Первый же вариант будет работать всегда, даже если вы поменяете CloudFlare на другой балансировщик нагрузки.</p>

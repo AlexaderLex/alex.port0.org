@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <!--webaudio polyfills-->
+    <script LANGUAGE="javascript" src="/_design/modplayerjs/get-float-time-domain-data.min.js"></script>
+    <script LANGUAGE="javascript" src="/_design/modplayerjs/audioworklet-polyfill.js"></script>
+    <!--some usefull js stuff-->
+    <script LANGUAGE="javascript" src="/_design/modplayerjs/utils.js"></script>
+    <script LANGUAGE="javascript" src="/_design/modplayerjs/modplayer.js"></script>
+</head>
+
+<body>
+    <SCRIPT LANGUAGE="javascript">
+        ModPlayer.init({
+            autoPlay: true
+        })
+            .then(() => {
+                ModPlayer.loadModule('/_music/ENDLESS PiRACY - Killer 3D Pool +2 trn.mod');
+            }).catch((err) => {
+                toast.show(`Error loading module: ${err}`);
+            });    
+    </SCRIPT>
+    <button onclick="ModPlayer.play()">play/pause</button>
+    <button onclick="ModPlayer.play()">play/pause</button>
+    <button onclick="ModPlayer.stop()">stop</button>
+</body>
+
+</html>

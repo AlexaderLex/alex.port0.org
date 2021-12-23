@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Glass TTY VT220';
+    src: local('VT220'), local('Glass_TTY_VT220'),
+        url('subset-Glass_TTY_VT220.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+
+<HEAD>
+    <META content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <META name="viewport" content="width=device-width, initial-scale=1.0">
+    <TITLE>САЙТ С СТАТЬЯМИ И ПРОГРАММАМИ ДЛЯ КОМПЬЮТЕРОВ</TITLE>
+    <LINK href="_design/page.css" rel="stylesheet" type="text/css">
+    <!-- {{HEAD}} -->
+</HEAD>
+
+<BODY bgcolor="#881316" background="_design/square.gif" text="#F5FFBE" link="#00FF00" alink="#00FF00" vlink="#00FF00" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+    <!-- {HEADER} -->
+    <iframe src="header.htm" frameborder="0" class="headerFrame" onload="resizeIframe(this)"></iframe>
+
+    <!-- {BODY} -->
+    <P>Добро пожаловать на сайт с всяческими статьями, программами и заметками по IT</P>
+    <P>Пока что здесь ничего нет, а может и есть, просто я забыл заменить эту надпись, в любом случае насладись случайным изображением котика:</P>
+    <P id='nocat'><font color='red' size='7'>Не видишь котика?<BR>— Обнови браузер</font></P>
+    <img id="cat" style="background: url(_design/MEMZ.webp) no-repeat center center;min-width: 500px;min-height: 500px;max-width: 800px;">
+    <script>
+        const fetchData = async () => {
+            const response = await fetch('https://api.thecatapi.com/v1/images/search');
+            return response.json();
+        }
+        fetchData().then( myResponse => cat.src = myResponse[0].url );
+        nocat.remove();
+    </script>
+    
+    <!-- {FOOTER} -->
+    <script src="_design/j.js"></script>
+</BODY>
+
+</HTML>

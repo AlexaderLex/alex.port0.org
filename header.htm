@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+
+<HEAD>
+    <META content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <META name="viewport" content="width=device-width, initial-scale=1.0">
+    <TITLE>САЙТ С СТАТЬЯМИ И ПРОГРАММАМИ ДЛЯ КОМПЬЮТЕРОВ</TITLE>
+    <LINK href="_design/c.css" rel="stylesheet" type="text/css">
+        <base target="_top">
+</HEAD>
+
+<BODY text="#F5FFBE" link="#00FF00" alink="#00FF00" vlink="#00FF00" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+    <div class="menu">
+        <a href="home.htm"><img src="_design/home-animated-blue-1.gif" width="34" valign=middle></a>
+        <img src="_design/playpause.png" width="34" align="texttop" onClick="ModPlayer.play()">
+        <img src="_design/animated-bullet-26.gif" class="blinkingBullet">
+        <a href="news">НОВОСТИ</a>
+        <img src="_design/animated-bullet-26.gif" class="blinkingBullet">
+        <a href="links">ССЫЛКИ</a>
+        <img src="_design/animated-bullet-26.gif" class="blinkingBullet">
+        <a href="download">СКАЧАТЬ</a>
+        <img src="_design/animated-bullet-26.gif" class="blinkingBullet">
+        <a href="articles">ПОЧИТАТЬ</a>
+        <img src="_design/animated-bullet-26.gif" class="blinkingBullet">
+        <a href="/" target="_top">ВЫХОД</a>    </div>
+<SCRIPT LANGUAGE="JavaScript">
+        if (self.parent.frames.length == 0) { self.parent.location = "/main.htm"};
+    </SCRIPT>
+        <SCRIPT LANGUAGE="javascript" src="/_design/modplayerjs/get-float-time-domain-data.min.js"></SCRIPT>
+        <SCRIPT LANGUAGE="javascript" src="/_design/modplayerjs/audioworklet-polyfill.js"></SCRIPT>
+        <SCRIPT LANGUAGE="javascript" src="/_design/modplayerjs/utils.js"></SCRIPT>
+        <SCRIPT LANGUAGE="javascript" src="/_design/modplayerjs/modplayer.js"></SCRIPT>
+        <SCRIPT LANGUAGE="javascript">
+            let track = '/_music/DREAM TEAM - GODS intro.mod';
+            ModPlayer.init({autoPlay: true})
+                .then(() => {
+                    ModPlayer.loadModule(track);
+                }).then(() => {
+                    ModPlayer.loadModule(track);
+                }).catch((err) => {
+                    toast.show(`Error loading module: ${err}`);
+                });    
+        </SCRIPT>
+</BODY>
+<style>
+html,body{height: 1px;}
+</style>
+</HTML>

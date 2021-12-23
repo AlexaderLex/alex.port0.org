@@ -1,0 +1,56 @@
+Делаем Time Capsule на основе Linux
+cats: Linux, Железо, Прочее, Сисадминство
+tags: Apple, linux
+2017-07-03 02-21 linux-based-time-capsule-diy\
+
+<p>Time Capsule (рус. капсула времени) — довольно дорогое устройство, выпускаемое компанией Apple, сочетающее в одном корпусе жёсткий диск и базовую станцию AirPort Extreme. <strong>Позволяет осуществлять беспроводное резервное копирование на настольном компьютере или ноутбуке Mac</strong>. Устройство поддерживает программу Time Machine, входящую в Mac OS X (Wikipedia)<!--more--><code style="display: none;"><!--more--></code>Apple никогда не делали бюджетных устройств, любое их изделие хорошо смотрится и прилично стоит, даже если это просто роутер с жёстким диском.<br />
+ Основная функция Time Capsule в том, чтобы хранить резервные копии OS X, но это не значит, что её нельзя сымитировать. Именно этим мы и займёмся. Всё, что нам понадобится: флешка на 1Гб, жёсткий диск и любой ненужный компьютер.</p>
+<p>Чтобы упростить этот урок, я не рассказываю, как сделать WiFi роутер. Возможно мы этим займёмся в других уроках. Наша задача собрать компьютер, который при подключении в локальную сеть будет виден как настоящий Time Capsule. Мы будем делать наш Time Capsule на основе Linux, я выбрал Centos 7, как один из самых стабильных дистрибутивов.</p>
+<p>Приступим.</p>
+<h2>Создание установочной флешки под MacOS</h2>
+<ol>
+	<li>Заходим на сайт <a href="https://www.centos.org/download/">https://www.centos.org/download/</a>, выбираем Minimal ISO и качаем с любого сервера.</li>
+	<li>Записываем ISO-файл на флешку. Это можно сделать разными способами, но я решил использовать стандартные средства MacOS.<br />
+ Открываем Дисковую утилиту.<br />
+ <a href="disk-utility.png"><img src="disk-utility.png" alt="" width="831" height="454" class="size-full wp-image-874 alignnone" /></a>Здесь нам нужен только номер диска. Запоминаем его и нажимаем извлечь.</li>
+	<li>Далее открываем терминал и пишем:<br />
+ <strong><span style="font-family: 'courier new', courier, monospace;">sudo dd if=PATH_TO_ISO of=/dev/diskNNN bs=1m<br />
+ </span></strong>PATH_TO_ISO<strong> </strong>- путь к скаченному файлу<br />
+ NNN - номер диска из дисковой утилиты<br />
+ <img src="terminal.png" alt="" width="585" height="390" class="size-full wp-image-876 alignnone" /></li>
+	<li>Команда подвиснет на несколько минут, затем выдаст сообщение<br />
+ <img src="flash-eject.png" alt="" width="559" height="155" class="size-full wp-image-879 alignnone" /><br />
+ Нужно нажать извлечь.</li>
+	<li>Флешка готова</li>
+</ol>
+<h2>Установка Centos 7</h2>
+<ol>
+	<li>Втыкаем флешку, выбираем её в BIOS и загружаемся с неё.</li>
+	<li>Настраиваем сеть. Нужно указать статический IP адрес, DNS и шлюз, а также включить активацию адаптера при загрузке.<br />
+  <a href="startup.png"></a>
+<p><a href="main.png"><img src="main.png" alt="Установка Centos" width="150" height="150" class="alignnone wp-image-883 size-thumbnail" title="Установка Centos. Здесь настраивается сеть" /></a> <a href="startup.png"><img src="startup.png" alt="Установка Centos" width="150" height="150" class="alignnone wp-image-880 size-thumbnail" title="Установка Centos. Автозагрузка сетевой карты" /></a> <a href="adapter.png"><img src="adapter.png" alt="Установка Centos" width="150" height="150" class="alignnone wp-image-881 size-thumbnail" title="Установка Centos. Адаптер нужно включить и настроить." /></a> <a href="ip.png"><img src="ip.png" alt="Установка Centos" width="150" height="150" class="alignnone wp-image-882 size-thumbnail" title="Установка Centos. Задание IP адресов." /></a><br />
+ <br />
+ Пояснение к IP  адресам. Я понимаю, что не все сисадмины и знают как работают IP адреса. Поэтому поясню какой IP нужно указать.<br />
+ Сперва посмотрите какой IP адрес у вашего компьютера через настройки сети.<br />
+ <a href="ip-addr.png"></a><a href="macos-network.png"><img src="macos-network.png" alt="" width="668" height="563" class="alignnone size-full wp-image-894" /></a><br />
+ Обычно роутеры выдают IP адреса 192.168.0.xxx или 192.168.1.xxx, а xxx от 1 до 254. В любом случае меняется только последняя цифра. Я выбрал 192.168.0.200, потому что обычно он не занят.</p>
+</li>
+	<li>
+<p>Настройка разделов на диске.<br />
+ <a href="part-scheme.png"></a><a href="main-disk.png"><img src="main-disk.png" alt="Установка Centos." width="150" height="150" class="alignnone wp-image-898 size-thumbnail" title="Установка Centos. Настройка диска" /></a> <a href="disk.png"><img src="disk.png" alt="Установка Centos" width="150" height="150" class="alignnone wp-image-897 size-thumbnail" title="Установка Centos. Здесь нужно задать разметку вручную" /></a> <a href="disk.png"></a><a href="part-scheme.png"><img src="part-scheme.png" alt="Установка Centos" width="150" height="150" class="alignnone wp-image-896 size-thumbnail" title="Установка Centos. Так должна выглядеть разметка" /></a><br />
+ С настройкой разделов всё просто. Файл подкачки не нужен при 2 и более Гб памяти, а из разделов нужно оставить только /boot и /. Подробнее на видео</p>
+</li>
+</ol>
+<h2>Настройка LINUX</h2>
+<p>Мы установили Linux и подключили его к локалке. Теперь нужно настроить на нём службы. Всю настройку мы будем проводить с компьютера с MacOS удалённо, череp ssh.</p>
+<ol>
+	<li>Открываем терминал</li>
+	<li>пишем ssh root@IP_ADDR (IP адрес, который мы указали при установке Centos)</li>
+	<li>последовательно выполняем команды из текстового файла: <a href="TimeCapsule.txt">TimeCapsule.txt</a></li>
+	<li>Если всё сделано правильно, то при открытии Time Machine появится наше новое устройство. После подключения, начнётся резервное копирование<br />
+  <a href="time-cap.png"><img src="time-cap.png" alt="" width="150" height="150" class="alignnone size-thumbnail wp-image-905" /></a></li>
+</ol>
+
+На этом всё. А вот и обещанное видео руководство как это сделать<br />
+ <br />
+ <a href="time-capsule.jpg"></a><a href="https://www.youtube.com/watch?v=h5uupLxKVXA&amp;list=PL6uj0c0ykbuRs_OjVyaU_btMUyLyyccnZ" target="_blank" rel="noopener"><img src="time-capsule.jpg" alt="time-capsule: just works!" width="1280" height="720" class="yt-thumb alignnone wp-image-871 size-full" /></a>

@@ -1,0 +1,37 @@
+Показать пароли на странице
+cats: Интернет
+tags: Интернет, Снипет, Советы
+2013-06-28 18-12 show-passwords\
+
+
+<p>В полях для ввода пароля на сайтах вводимые символы заменяются звёздочками (или точками). Это может защитить от подглядываний, но делает не удобным сам ввод пароля. Для Firefox есть расширение <a href="https://addons.mozilla.org/ru/firefox/addon/show-password">Show Password</a>, которое показывает вводимые пароли. Для других браузеров я не нашёл подобных расширений (хотя может плохо искал)<!--more--></p>
+<!--break-->
+<p>Я написал букмарклет для показа вводимого пароля и публикую его здесь.</p>
+<p>Перетащите следующую ссылку на панель закладок своего браузера. При её нажатии пароли откроются, а при повторном нажатии вновь спрячутся</p>
+<p>
+
+<p>Перетащите следующую ссылку на панель закладок своего браузера. При её нажатии пароли откроются, а при повторном нажатии вновь спрячутся</p>
+<p><a href="javascript:(function(){pass=document.getElementsByTagName('input');for(i=0;i<=pass.length-1;i++){if(pass[i].type=='password'){pass[i].type='text';pass[i].setAttribute('waspassword',1)}else if (pass[i].hasAttribute('waspassword')){pass[i].removeAttribute('waspassword');pass[i].type='password'}}})();">Показать пароли</a></p>
+<p><input name="" readonly="readonly" size="20" style="border:1px solid #000" type="password" value="SuperPassword123456" /></p>
+
+
+
+
+
+</p>
+<p>Далее привожу скрипт в удобном виде</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="js">
+    (function(){
+    	pass=document.getElementsByTagName('input');
+    	for(i=0;i&lt;pass.length;i++){
+    		if(pass[i].type=='password'){
+    			pass[i].type='text';
+    			pass[i].setAttribute('waspassword',1)
+    		}else if (pass[i].hasAttribute('waspassword')){
+    			pass[i].removeAttribute('waspassword');
+    			pass[i].type='password'
+    		}
+    	}
+    })();
+</pre>
+<p>Сей скрипт работает во всех браузерах в том числе в IE, начиная с 9-й версии.</p>

@@ -1,0 +1,26 @@
+Не входит в Creative Cloud
+cats: Программы, Устранение неполадок
+tags: Adobe, Программы, сбой
+2017-08-17 15-55 cant-login-adobe-cc\
+
+<p>Обладатели лицензионного пакета от Adobe могут столкнуться с такой проблемой: не получается войти в Adobe Creative Cloud и после ввода логина и пароля Creative Cloud подвисает и загрузка никогда не заканчивается. При этом невозможно обновить ни одну установленную программу Adobe т.к. обновление проходит только через этот самый Creative Cloud. Чтобы это исправить, нужно проделать следующее:</p>
+<p><!--more-->Идём в Пуск-&gt;Выполнить или нажимаем сочетание клавиш Win-R.<br />
+ В это окошко нужно ввести <strong><span style="font-family: 'courier new', courier, monospace;">%LOCALAPPDATA%\Adobe</span></strong> и удалить в этой директории папки с названиями <span style="font-family: 'courier new', courier, monospace;"><strong>AAMUpdate</strong></span> и <span style="font-family: 'courier new', courier, monospace;"><strong>OOBE</strong></span>, затем нужно проделать тоже самое в директориях:<br />
+ <span style="font-family: 'courier new', courier, monospace;"><strong>%CommonProgramFiles(x86)%\Adobe</strong></span> и <span style="font-family: 'courier new', courier, monospace;"><strong>%ProgramData%\Adobe</strong></span></p>
+<p><a href="command-prompt.png"><img class="wp-image-757 alignleft" src="command-prompt.png" alt="" width="200" height="401" /></a></p>
+<p>Также это можно сделать из командной строки от имени администратора:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="null">rd /q /s "%LOCALAPPDATA%\Adobe\AAMUpdater"
+rd /q /s "%LOCALAPPDATA%\Adobe\OOBE"
+rd /q /s "%CommonProgramFiles(x86)%\Adobe\AAMUpdater"
+rd /q /s "%CommonProgramFiles(x86)%\Adobe\OOBE"
+rd /q /s "%ProgramData%\Adobe\AAMUpdater"
+rd /q /s "%ProgramData%\Adobe\OOBE"</pre>
+<p><img class="alignnone wp-image-1060 size-full" src="cmd-ad-admin-prompt.png" alt="" width="400" height="190" /></p>
+<p>[br-clear]</p>
+<p>После этого нужно заново скачать Creative Cloud по ссылке <a href="https://creative.adobe.com/products/download/creative-cloud">https://creative.adobe.com/products/download/creative-cloud</a><br />
+ и всё должно заработать.</p>
+<p><a href="2016-07-25_153618.png"><img class="alignleft wp-image-1044" src="2016-07-25_153618.png" alt="" width="200" height="355" /></a><a href="2016-07-25_153634.png"><img class="alignleft wp-image-1043" src="2016-07-25_153634.png" alt="" width="200" height="355" /></a><a href="2016-07-25_153709.png"><img class="alignleft wp-image-1045" src="2016-07-25_153709.png" alt="" width="200" height="355" /></a>[br-clear]</p>
+<p>&nbsp;</p>
+<p><br />
+Видео к статье: <br />
+<a href="https://www.youtube.com/watch?v=5jMkNDsGuAo" target="_blank" rel="noopener"><img class="yt-thumb alignnone wp-image-871 size-full" src="https://i.ytimg.com/vi/5jMkNDsGuAo/maxresdefault.jpg" width="1280" height="720" /></a></p>

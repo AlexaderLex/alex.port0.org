@@ -1,0 +1,16 @@
+WORDPRESS: перенос сайта на хостинг
+cats: CMS, Wordpress, Создание сайтов
+tags: CMS, Wordpress, Плагин, хостинг
+2017-06-26 22-47 moving-wordpress-website\
+
+<p>Процесс переноса сайта на другой хостинг или домен как правило не сложен. Всё что нужно - это скопировать файлы сайта и базу данных на новый хостинг. В случае с Wordpress это не совсем так. В отличие других CMS, WordPress хранит в базе абсолютные ссылки на домен, на который был установлен, поэтому простой экспорт/импорт базы возможен только в том случае, если домен остаётся прежним. <!--more--><br />
+ Если же использовать поиск с заменой по SQL файлу, то будет нарушена целостность сериализованных данных и собьются настройки темы и некоторых плагинов.</p>
+<p>Если нужно перенести сайт на WordPress с локального сервера на хостинг или на другой домен лучше всего это делать через специальный плагин <a href="/wp-duplicator" target="_blank" rel="noopener">Duplicator </a></p>
+<p><a href="https://www.youtube.com/watch?v=5Oz_RYt7olE">Смотреть на</a> <a href="https://www.youtube.com/watch?v=5Oz_RYt7olE"><img src="youtube-icon.png" alt="" width="89" height="36" class="wp-image-864 alignnone" /></a> <a href="https://www.youtube.com/watch?v=5Oz_RYt7olE"></a></p>
+<p>Идём в установщик плагинов и ищем Duplicator. <a href="2-wordpress-duplicator-search.png"><img class="size-full wp-image-844 alignnone" src="2-wordpress-duplicator-search.png" alt="" width="1280" height="720" /></a></p>
+<p>Он будет выглядеть так: <a href="1-wordpress-duplicator.png"><img class="size-full wp-image-843 alignnone" src="1-wordpress-duplicator.png" alt="" width="1280" height="720" /></a></p>
+<p>Нажимаем создать новый, далее и, не обращая внимание на предупреждения, ставим галочку и продолжаем процесс. <a href="3-wordpress-duplicator.png"><img class="size-full wp-image-845 alignnone" src="3-wordpress-duplicator.png" alt="" width="1280" height="720" /></a><a href="4-wordpress-duplicator-warning.png"><img class="size-full wp-image-846 alignnone" src="4-wordpress-duplicator-warning.png" alt="" width="1280" height="720" /></a></p>
+<p>Далее нужно создать базу данных на хостинге и закачать скаченный архив. <a href="5-db-creation.png"><img class="size-full wp-image-847 alignnone" src="5-db-creation.png" alt="" width="1280" height="720" /></a></p>
+<p>Теперь переходим по ссылке ВАШ_САЙТ.COM/installer.php, вводим параметры БД и восстанавливаем сайт. <a href="6-wordpress-duplicator-db-enter.png"><img class="size-full wp-image-848 alignnone" src="6-wordpress-duplicator-db-enter.png" alt="" width="1280" height="720" /></a><a href="7-wordpress-duplicator-accept.png"><img class="size-full wp-image-849 alignnone" src="7-wordpress-duplicator-accept.png" alt="" width="1280" height="720" /></a></p>
+<p>На последнем этапе желательно очистить кэш установки, дабы уберечь незащищённые файлы от взлома <a href="8-wordpress-duplicator-final.png"><img class="size-full wp-image-850 alignnone" src="8-wordpress-duplicator-final.png" alt="" width="1280" height="720" /></a> </p>
+<p><a href="https://www.youtube.com/watch?v=5Oz_RYt7olE" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/5Oz_RYt7olE/maxresdefault.jpg" width="1280" height="720" class="yt-thumb alignnone" alt="" /></a></p>

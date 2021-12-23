@@ -1,0 +1,124 @@
+Time Machine Server based on Centos 7
+
+1. Install required software
+----------------------------
+yum clean all
+yum update -y
+
+yum -y install epel-release
+
+yum install -y \
+rpm-build \
+gcc \
+make \
+avahi \
+nano \
+avahi-devel \
+bison \
+cracklib-devel \
+dbus-devel \
+dbus-glib-devel \
+docbook-style-xsl \
+flex \
+libacl-devel \
+libattr-devel \
+libdb-devel \
+libevent-devel \
+libgcrypt-devel \
+libxslt \
+krb5-devel \
+mysql-devel \
+openldap-devel \
+openssl-devel \
+pam-devel \
+quota-devel \
+systemtap-sdt-devel \
+tcp_wrappers-devel \
+libtdb-devel \
+tracker-devel \
+perl-IO-Socket-INET6 \
+perl-interpreter \
+mock \
+dconf
+
+
+2. Google centos netatalk
+-------------------------
+   copy the download link
+   execute this command rpm -ivh <DOWNLOAD-LINK-HERE>
+   for example:
+
+rpm -ivh http://www003.upp.so-net.ne.jp/hat/files/netatalk-3.1.8-0.1.5.fc25.src.rpm
+
+   warning: group hat does not exist - using root
+   warning: user hat does not exist - using root
+   these messages don't have a problem
+
+3. Build your rpm
+------------------
+
+cd ~/rpmbuild/SPECS/
+rpmbuild -bb netatalk.spec
+
+        wait...wait....wait...
+
+cd ~/rpmbuild/RPMS/x86_64/
+ls -1
+        netatalk-3.1.8-0.1.5.el7.centos.x86_64.rpm         <- YOU NEED THIS ONE!
+        netatalk-debuginfo-3.1.8-0.1.5.el7.centos.x86_64.rpm
+        netatalk-devel-3.1.8-0.1.5.el7.centos.x86_64.rpm
+
+
+3. Install your rpm
+-------------------
+rpm -Uvh netatalk-3.1.8-0.1.5.el7.centos.x86_64.rpm
+
+        check that afp daemon is installed
+afpd -V
+
+4. Create configuration files
+-----------------------------
+
+nano /etc/avahi/services/afp.service
+
+========= PASTE THIS =========
+<?xml version="1.0" standalone='no'?>
+<!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+
+<service-group>
+        <name replace-wildcards="yes">%h</name>
+
+        <service>
+                <type>_afpovertcp._tcp</type>
+                <port>548</port>
+        </service>
+
+        <service>
+                <type>_device-info._tcp</type>
+                <port>0</port>
+                <txt-record>model=TimeCapsule</txt-record>
+        </service>
+</service-group>
+========= PASTE THIS =========
+
+
+nano /etc/netatalk/afp.conf
+
+
+========= PASTE THIS =========
+[Global]
+mimic model = TimeCapsule
+
+; [Homes]
+; basedir regex = /xxxx
+
+[Time Capsule]
+path = /tm
+time machine = yes
+spotlight = no
+valid users = bak
+========= PASTE THIS =========
+
+5. 
+systemctl enable avahi-daemon netatalk
+systemctl start avahi-daemon netatalk
